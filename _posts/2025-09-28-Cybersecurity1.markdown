@@ -38,7 +38,7 @@ There are many ways to handle user input. One way is to “reject known bad.” 
 
 ### Blog
 
-I started thinking ahead of how I want to make my portfolio/blog look. I was originally thinking of something visually pleasing but also minimal. I wanted to put minimal things on the website, but also make those minimal things really cool. I thought that would create an effect of looking nice, but also not having too much. A website that has minimal components but also has cool animations, colors, and other aspects of the components is the homepage of Zen Browser
+I started thinking ahead of how I want to make my portfolio/blog look. I was originally thinking of something visually pleasing but also minimal. I wanted to put minimal things on the website, but also make those minimal things really cool. I thought that would create an effect of looking nice, but also not having too much. A website that has minimal components but also has cool animations, colors, and other aspects of the components is the homepage of Zen Browser. 
 
 ### Google Certificate 
 
@@ -47,4 +47,31 @@ Midway through the week, I started looking at the Google Certificate. After care
 ### Lots more Juice Shopping
 
 For the rest of the week, I decided to work a lot on juice shop. I got a lot of the tasks and challenges done. but needed to use a lot of hints. 
+
+### Some Linux Booting!
+
+I had an old laptop, and a spare USB drive. Why not make use of it? I researched a little bit and found a Linux OS that interested me. I stumbled upon Fedora, which seemed like them most common upon linux users, that and ubuntu. I figured out how to use the Fedora media writer, and started downloading it to the USB drive. When I opened the boot menu of my old laptop and selected the USB drive to boot, it just didn't boot and instead went back to windows. After doing some research, I found that it was a bug with windows autoplay. If it didn't work with windows, it must work with linux right? Well it turns out I had another old USB drive with ubuntu already loaded on it. Booted that, worked fine. Downloaded the fedora media writer on ubuntu. Wrote the media. Opened the boot menu. Selected the USB drive, and... perfect! The media check didn't get stuck at 4.8% this time, and instead continued all the way.
+
+## The Third Week
+
+### Juice Shop Challenges
+
+My teacher reccomended me a good idea: to document some of my juice shop work. Here are three easier challenges that I worked on.
+
+#### _Challenge 1_: Zero Stars
+_The Objective: Give a devastating zero-star feedback to the store._
+As soon as I saw this, I had an idea. For lots of the challenges, an idea doesn't come to me right away. In the website, there is a customer feedback section where you can add a comment and a star rating. I looked at the page, and saw a slider. From my previous web development knowledge, I know that I could probably modify the max and min stars I could input with the sliders. I opened my web tools and took a peek at the slider. 
+
+First, I saw in the slider element there was a 'min' attribute. I set that to 0 to see what happened when I slid the slider as far back as I could. Nothing. I expanded the element and found an input element within. I set the 'min' attribute to 0 on the input element. I slid the slider all the way back, and the indicator said 0. I noticed that the submit button was grayed out. There must be some type of validation. I went back into the web tools and set all the submit button's 'disabled' attributes to false. I was the able to click the submit button and complete the challenge.
+
+#### _Challenge 2_: Outdated Allowlist
+_Let us redirect you to one of our crypto currency addresses which are not promoted any longer._
+I first decided to try to find a payment screen. I wasn't sure how to get to my basket, but I figured out that the admin account had some stuff in his basket. I logged in as the admin, and clicked checkout on the basket page. I went through the delivery options, and got to the payment screen. I first tried to see if the admin had any history with paying using crypto, but there was nothing. After ruling out all the sections in the payment section that might have crypto involved but one, I dove deeper.
+
+I opened dev tools and looked at all of the donation and merchandise buttons, but I didn't notice anything. I tried changing the URL to their donations around, but I eventually decided that would take too long. One trend I saw was that the href to all the <a> tags had redirect?to= in the url. This definetely had to do something with the challenge, because the description mentioned redirects. I thought maybe there would be a leftover redirect somewhere in the code. I went into the main.js and searched if there were any appearences of "crypto" in the code, but nothing useful showed up. I then searched for "redirect?to=", and scrolled through the results. I found an old function that served no use for the page that redirected you to their crypto address.
+
+#### _Challenge 3_: Repetitive Registration
+_Follow the DRY principle while registering a user._
+
+I had no clue what the "DRY principle" was, so I had to look it up. It is a principle of software development aimed at reducing repetition of information which is likely to change. I assumed that I would have to repeat a field when signing up. I assumed i it would have to be with the passwords, because they have to repeat. I first tried to not repeat myself, as the principle says. It just said passwords do not match. I matched the two fields, and then the error was gone. I thought that if the error was gone, maybe the code doesn't check if they match again after changing it again. I changed the first field, and the matching error still wasn't there. I was able to register to finish the challenge.
 
