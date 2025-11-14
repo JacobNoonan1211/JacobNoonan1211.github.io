@@ -72,6 +72,16 @@ I opened dev tools and looked at all of the donation and merchandise buttons, bu
 
 #### _Challenge 3_: Repetitive Registration
 _Follow the DRY principle while registering a user._
-
 I had no clue what the "DRY principle" was, so I had to look it up. It is a principle of software development aimed at reducing repetition of information which is likely to change. I assumed that I would have to repeat a field when signing up. I assumed i it would have to be with the passwords, because they have to repeat. I first tried to not repeat myself, as the principle says. It just said passwords do not match. I matched the two fields, and then the error was gone. I thought that if the error was gone, maybe the code doesn't check if they match again after changing it again. I changed the first field, and the matching error still wasn't there. I was able to register to finish the challenge.
 
+## Project Week
+
+### Juice Shop and Coursera
+
+I've started to drift from juice shop, as I've gotten a good introduction from it. I have still been working on the coursera google cybersecurity course. I've finished the first two subcategories of the course, and am working on the third. So far, I've learned a lot of vocab terms. Some of the most recent ones that I remember are SIEM tools, SOAR tools, and playbooks. During the first subcategory, I learned a lot about cybersecurity jobs.
+
+### Project
+
+I've decided to start on a project. I'm calling it PacketVision. This project will utilize MatPlotLib and PyShark to visualize packets sent throughout a network. I've always wanted to work with MatPlotLib, so this project excites me. 
+
+First, I had to figure out how PyShark worked. I'm going to need to learn how to analyze packets as the project progresses. I simply made a list, and then hooked up PyShark to live capture all packets. Then, I used a for loop to analyze each of the packets. I was able to get an IP source and an IP destination. Now I needed to find out the hostnames of both IPs. I found a module for python called "socket." This would help me reverse DNS lookup each of the IPs. I then had to work on the MatPlotLib. All I did was setup the dimensions for the bargraph, and set up the layout. I appended each of the source ips and destination ips from the packet to their own unique list. I then added that data to the matplotlib graph. When I ran the for loop, the graphs said that the data lists were not equal in length. I realized this is because some of the reverse DNS lookups couldn't resolve a hostname. Therefore, I put in a try and except, which would help filter out the packets that didn't have a hostname. The result came out like this:
