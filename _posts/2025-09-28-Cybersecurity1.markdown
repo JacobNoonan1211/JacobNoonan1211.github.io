@@ -26,7 +26,7 @@ I then chose a big cybersecurity attack to take a look at. The hack I decided to
 ### Juice Shopping
 I found a docker image that would create a fake website I can learn how to "hack" on. It's called OWASP Juice Shop. I first read a little bit about SQL injection, as the first task involved using it. I learned if a SQL query uses concatenation and doesn’t have a sanitizing or validation process, it will be easy to exploit the query’s vulnerabilities. In Juice Shop's login, you can put into the username input field <' or 1=1;> to create a SQL query that looks like "sql = “SELECT id FROM users WHERE user = ‘” + “‘ __or 1-1;__". This closes the quotes after the first where condition which allows the exploiter to modify the SQL query. By using "or 1=1", you can make it so it selects the first user made (usually the administrator), because the SQL query will always come out as true.
 
-![Screenshot](../img/in-post/post-sqlinjection.jpg)
+![Screenshot](../img/in-post/post-sqlinjection.png)
 
 ## The Second Week
 
