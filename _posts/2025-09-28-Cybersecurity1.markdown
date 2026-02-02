@@ -84,4 +84,52 @@ I've started to drift from juice shop, as I've gotten a good introduction from i
 
 I've decided to start on a project. I'm calling it PacketVision. This project will utilize MatPlotLib and PyShark to visualize packets sent throughout a network. I've always wanted to work with MatPlotLib, so this project excites me. 
 
-First, I had to figure out how PyShark worked. I'm going to need to learn how to analyze packets as the project progresses. I simply made a list, and then hooked up PyShark to live capture all packets. Then, I used a for loop to analyze each of the packets. I was able to get an IP source and an IP destination. Now I needed to find out the hostnames of both IPs. I found a module for python called "socket." This would help me reverse DNS lookup each of the IPs. I then had to work on the MatPlotLib. All I did was setup the dimensions for the bargraph, and set up the layout. I appended each of the source ips and destination ips from the packet to their own unique list. I then added that data to the matplotlib graph. When I ran the for loop, the graphs said that the data lists were not equal in length. I realized this is because some of the reverse DNS lookups couldn't resolve a hostname. Therefore, I put in a try and except, which would help filter out the packets that didn't have a hostname. The result came out like this:
+First, I had to figure out how PyShark worked. I'm going to need to learn how to analyze packets as the project progresses. I simply made a list, and then hooked up PyShark to live capture all packets. Then, I used a for loop to analyze each of the packets. I was able to get an IP source and an IP destination. Now I needed to find out the hostnames of both IPs. I found a module for python called "socket." This would help me reverse DNS lookup each of the IPs. I then had to work on the MatPlotLib. All I did was setup the dimensions for the bargraph, and set up the layout. I appended each of the source ips and destination ips from the packet to their own unique list. I then added that data to the matplotlib graph. When I ran the for loop, the graphs said that the data lists were not equal in length. I realized this is because some of the reverse DNS lookups couldn't resolve a hostname. Therefore, I put in a try and except, which would help filter out the packets that didn't have a hostname. After some styling, the result came out like this:
+
+![Screenshot](/img/in-post/post-packetvision-dashboard.png)
+
+Afterwards, I knew I had to make this more useful. So, I decided to add alerts for suspicious activity. The first alert I decided to add was to detect a port scan. The way I did this is to keep a record of each destination IP a source IP has contacted. Once one source IP has hit more than 20 destination IP's, it flags it as a port scan.
+
+Next, I added an ICMP flood detector and a generic packet flood detector. I simply added an if statement to check if there are more than 100 ICMP packets/any packets in the last 5 seconds.
+
+To detect a source IP reaching a suspicious port, I first created a list of suspicious ports (4444, 1337, 5555). Then, I checked if the list of destination IP's has one of those ports.
+
+For DNS tunnelling, I checked if the DNS query length was greater than 60. Then it would flag DNS tunneling.
+
+
+I was able to get the alerts working with some testing commands:
+
+
+```
+sudo ping -i 0.01 -c 600 8.8.8.8 (icmp flood)
+
+sudo PV_INTERFACE=lo0 python3 packetvision.py (to run in loopback)
+nmap -p 1-1000 127.0.0.1 (port scan)
+
+sudo PV_INTERFACE=lo0 python3 packetvision.py (to run in loopback)
+nc 127.0.0.1 4444 (suspicious port)
+
+dig aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.example.com (DNS tunneling)
+```
+
+Once I put these into the terminal, it would test all of the flags. Eventually, with some tweaking around with thresholds and the commands, I was able to get it to work! Here is a sample alert:
+
+![Screenshot](/img/in-post/post-sample-flag.png)
+
+## Homelabbing
+
+### Intro
+
+One way to learn IT infrastructure is to create your own. That is why I am creating a personal homelab. A homelab consists of servers, routers, NAS storage, and so much more. It is good to learn server management and security networking without risk. To begin, I grabbed my old Thinkpad T14s and charged it up.
+
+### Prerequisites
+
+I first installed Proxmox, one of the best hypevisors out there. This will be the first part of the structure, and will manage all the virtual machines and container in a web GUI. I had a bit of trouble accessing the web GUI. The problem was that I didn't have an ethernet cable plugged in, duh. I realized I was out of spaces on my router, so I bought a network switch and also a ethernet to USB, as my Thinkpad did not have an ethernet slot.
+
+### Adding more
+
+After succesfully installing Proxmox, I wanted to access it anywhere. I decided to get tailscale, which was pretty simple to install but of course had a little troubleshooting. I then added an Ubuntu VM, and made sure I could SSH into it from my Mac. I learned about snapshots online. Snapshots are basically a backup that you should take everytime you install something new, incase something happens and you need a fresh starting point. I then made some security measures by making sure only I could access it using tailscale, and it won't be open to the network I am on.
+
+The next step was to install Docker and its containers. The plan for this homelab was to have an adblocker, a monitoring system, and NAS storage. Docker would help me do most of this. The first service I installed using docker was pi-hole (the adblocker). Some troubleshooting was needed. A default ubuntu app was already using port 53, the pi-hole port. I had to kill it and then make sure to change to config to not start it when I turned the homelab on. After some more DNS and DHCP troubleshooting, I was able to access the pihole dashboard:
+
+*WIP*
