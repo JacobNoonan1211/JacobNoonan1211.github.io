@@ -132,4 +132,13 @@ After succesfully installing Proxmox, I wanted to access it anywhere. I decided 
 
 The next step was to install Docker and its containers. The plan for this homelab was to have an adblocker, a monitoring system, and NAS storage. Docker would help me do most of this. The first service I installed using docker was pi-hole (the adblocker). Some troubleshooting was needed. A default ubuntu app was already using port 53, the pi-hole port. I had to kill it and then make sure to change to config to not start it when I turned the homelab on. After some more DNS and DHCP troubleshooting, I was able to access the pihole dashboard:
 
-*WIP*
+![Screenshot](/img/in-post/pi-hole-dash.png)
+
+The next thing I wanted to setup was a NAS storage for my media files. I grabbed a USB encasing for an SSD, and put an SSD inside. I installed Samba for an NAS service and configured it. To connect the USB SSD I had to first identify what it was identified as within the Ubuntu system. After doing that using lsblk, I passed the USB disk to the Ubuntu VM. After, I formatted and mounted it. Finder was misbehaving a little bit, so I had to edit the Samba config and restart finder. I verified that I could access it from tailscale and then I was done. However, the USB SSD encasing was heating up a little bit, so I got a new one, and now need to mount the new one later.
+
+### Final Addition
+
+My last addition was to make a dashboard to monitor the homelab, and also add that dashboard to a Raspberry Pi. All I had to do was install netdata on the Ubuntu VM, and then set up the Raspberry Pi after a while of sitting around. Here is how the (very messy) final product looks.
+
+
+![Screenshot](/img/in-post/homelab-pic.jpeg)
