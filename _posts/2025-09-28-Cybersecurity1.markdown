@@ -136,9 +136,13 @@ The next step was to install Docker and its containers. The plan for this homela
 
 The next thing I wanted to setup was a NAS storage for my media files. I grabbed a USB encasing for an SSD, and put an SSD inside. I installed Samba for an NAS service and configured it. To connect the USB SSD I had to first identify what it was identified as within the Ubuntu system. After doing that using lsblk, I passed the USB disk to the Ubuntu VM. After, I formatted and mounted it. Finder was misbehaving a little bit, so I had to edit the Samba config and restart finder. I verified that I could access it from tailscale and then I was done. However, the USB SSD encasing was heating up a little bit, so I got a new one, and now need to mount the new one later.
 
-### Final Addition
+### Almost done!
 
-My last addition was to make a dashboard to monitor the homelab, and also add that dashboard to a Raspberry Pi. All I had to do was install netdata on the Ubuntu VM, and then set up the Raspberry Pi after a while of sitting around. Here is how the (very messy) final product looks.
+My second to last last addition was to make a dashboard to monitor the homelab, and also add that dashboard to a Raspberry Pi. All I had to do was install netdata on the Ubuntu VM, and then set up the Raspberry Pi after a while of sitting around. Here is how the (very messy) final product looks.
 
 
 ![Screenshot](/img/in-post/homelab-pic.jpeg)
+
+### Extra Addition
+
+As a mountain biker who takes a lot of GoPro videos, I need a place for storage. I currently have a server downstairs, however it is easy to access, as you need to be on the same network and need to connect to a server on a file system such as finder. I decided to use the USB encased SSD I plugged in earlier to store some mountain bike videos. I created a program that uses FastAPI to show all the videos and photos in a directory relative to the program. It is plain html and does not need styling. It just needs to be practical and easier to view videos/photos. It is made using Python and Jinja2, and runs directly on the homelab using Docker. I am able to access it using tailscale, and even made a quick-access app on my phone that connects to the NAS storage. 
