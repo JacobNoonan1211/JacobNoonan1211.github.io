@@ -12,7 +12,7 @@ tags:
 # My First Cybersecurity Journey
 
 ## The First Week
-
+_Oct 31 2025_
 ### Hacker's Handbook
 I first started out by looking at what my teacher reccomended me to do. First, she gave me a "Hacker's Handbook" pdf that included some general info. Some of this general info included:
 
@@ -75,13 +75,13 @@ _Follow the DRY principle while registering a user._
 I had no clue what the "DRY principle" was, so I had to look it up. It is a principle of software development aimed at reducing repetition of information which is likely to change. I assumed that I would have to repeat a field when signing up. I assumed i it would have to be with the passwords, because they have to repeat. I first tried to not repeat myself, as the principle says. It just said passwords do not match. I matched the two fields, and then the error was gone. I thought that if the error was gone, maybe the code doesn't check if they match again after changing it again. I changed the first field, and the matching error still wasn't there. I was able to register to finish the challenge.
 
 ## Project Week
-
+_Nov 14 2025_
 ### Juice Shop and Coursera
 
 I've started to drift from juice shop, as I've gotten a good introduction from it. I have still been working on the coursera google cybersecurity course. I've finished the first two subcategories of the course, and am working on the third. So far, I've learned a lot of vocab terms. Some of the most recent ones that I remember are SIEM tools, SOAR tools, and playbooks. During the first subcategory, I learned a lot about cybersecurity jobs.
 
 ### Project
-
+_Feb 2 2025_
 I've decided to start on a project. I'm calling it PacketVision. This project will utilize MatPlotLib and PyShark to visualize packets sent throughout a network. I've always wanted to work with MatPlotLib, so this project excites me. 
 
 First, I had to figure out how PyShark worked. I'm going to need to learn how to analyze packets as the project progresses. I simply made a list, and then hooked up PyShark to live capture all packets. Then, I used a for loop to analyze each of the packets. I was able to get an IP source and an IP destination. Now I needed to find out the hostnames of both IPs. I found a module for python called "socket." This would help me reverse DNS lookup each of the IPs. I then had to work on the MatPlotLib. All I did was setup the dimensions for the bargraph, and set up the layout. I appended each of the source ips and destination ips from the packet to their own unique list. I then added that data to the matplotlib graph. When I ran the for loop, the graphs said that the data lists were not equal in length. I realized this is because some of the reverse DNS lookups couldn't resolve a hostname. Therefore, I put in a try and except, which would help filter out the packets that didn't have a hostname. After some styling, the result came out like this:
@@ -117,7 +117,6 @@ Once I put these into the terminal, it would test all of the flags. Eventually, 
 ![Screenshot](/img/in-post/post-sample-flag.png)
 
 ## Homelabbing
-
 ### Intro
 
 One way to learn IT infrastructure is to create your own. That is why I am creating a personal homelab. A homelab consists of servers, routers, NAS storage, and so much more. It is good to learn server management and security networking without risk. To begin, I grabbed my old Thinkpad T14s and charged it up.
@@ -131,7 +130,7 @@ I first installed Proxmox, one of the best hypevisors out there. This will be th
 After succesfully installing Proxmox, I wanted to access it anywhere. I decided to get tailscale, which was pretty simple to install but of course had a little troubleshooting. I then added an Ubuntu VM, and made sure I could SSH into it from my Mac. I learned about snapshots online. Snapshots are basically a backup that you should take everytime you install something new, incase something happens and you need a fresh starting point. I then made some security measures by making sure only I could access it using tailscale, and it won't be open to the network I am on.
 
 The next step was to install Docker and its containers. The plan for this homelab was to have an adblocker, a monitoring system, and NAS storage. Docker would help me do most of this. The first service I installed using docker was pi-hole (the adblocker). Some troubleshooting was needed. A default ubuntu app was already using port 53, the pi-hole port. I had to kill it and then make sure to change to config to not start it when I turned the homelab on. After some more DNS and DHCP troubleshooting, I was able to access the pihole dashboard:
-
+_Feb 8 2025_
 ![Screenshot](/img/in-post/pi-hole-dash.png)
 
 The next thing I wanted to setup was a NAS storage for my media files. I grabbed a USB encasing for an SSD, and put an SSD inside. I installed Samba for an NAS service and configured it. To connect the USB SSD I had to first identify what it was identified as within the Ubuntu system. After doing that using lsblk, I passed the USB disk to the Ubuntu VM. After, I formatted and mounted it. Finder was misbehaving a little bit, so I had to edit the Samba config and restart finder. I verified that I could access it from tailscale and then I was done. However, the USB SSD encasing was heating up a little bit, so I got a new one, and now need to mount the new one later.
@@ -144,5 +143,6 @@ My second to last last addition was to make a dashboard to monitor the homelab, 
 ![Screenshot](/img/in-post/homelab-pic.jpeg)
 
 ### Extra Addition
-
+_Mar 9 2025_
 As a mountain biker who takes a lot of GoPro videos, I need a place for storage. I currently have a server downstairs, however it is easy to access, as you need to be on the same network and need to connect to a server on a file system such as finder. I decided to use the USB encased SSD I plugged in earlier to store some mountain bike videos. I created a program that uses FastAPI to show all the videos and photos in a directory relative to the program. It is plain html and does not need styling. It just needs to be practical and easier to view videos/photos. It is made using Python and Jinja2, and runs directly on the homelab using Docker. I am able to access it using tailscale, and even made a quick-access app on my phone that connects to the NAS storage. 
+
