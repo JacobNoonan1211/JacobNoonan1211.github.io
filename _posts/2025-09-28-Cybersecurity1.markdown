@@ -146,3 +146,44 @@ My second to last last addition was to make a dashboard to monitor the homelab, 
 _Mar 9 2025_
 As a mountain biker who takes a lot of GoPro videos, I need a place for storage. I currently have a server downstairs, however it is easy to access, as you need to be on the same network and need to connect to a server on a file system such as finder. I decided to use the USB encased SSD I plugged in earlier to store some mountain bike videos. I created a program that uses FastAPI to show all the videos and photos in a directory relative to the program. It is plain html and does not need styling. It just needs to be practical and easier to view videos/photos. It is made using Python and Jinja2, and runs directly on the homelab using Docker. I am able to access it using tailscale, and even made a quick-access app on my phone that connects to the NAS storage. 
 
+## New Big Project
+
+I needed to think of a new project. Looking around my house led me to the camera above my garage doors facing the street. I felt like doing some hardware work, so I made a plan: have the camera detect my car and open the garage door. First things first, it is an old garage door opener so I made sure I could open it remotely first. There was no app, so I resorted to a raspberry pi and a relay module. I found some female-to-female wires, and connected the pi to the relay module. I also added a script into the pi to activate the garage door.
+
+![Sreenshot](/img/in-post/relay-pi.jpeg)
+
+Afterwards, I cut two 1 foot doorbell wires then stripped all ends and connected them to the blue screw terminals on the relay module. I used this diagram to help me:
+
+![Screenshot](/img/in-post/relay-diagram.png)
+
+The pi would replicate the shorting of the two screw terminals I found in the wall console/button.  After wrapping the doorbell wire around the screw terminals (COM to red screw and NO to white screw), I turned on the pi and ran this script:
+
+```python
+import lgpio
+import time
+
+RELAY_PIN = 17
+h = lgpio.gpiochip_open(0)
+lgpio.gpio_claim_output(h, RELAY_PIN)
+lgpio.gpio_write(h, RELAY_PIN, 1)
+
+try:
+    input("Press Enter to trigger garage door...")
+    print("Triggering...")
+    lgpio.gpio_write(h, RELAY_PIN, 0)
+    time.sleep(0.5)
+    lgpio.gpio_write(h, RELAY_PIN, 1)
+    print("Done!")
+except KeyboardInterrupt:
+    pass
+finally:
+    lgpio.gpio_write(h, RELAY_PIN, 1)
+    lgpio.gpiochip_close(h)
+```
+
+This is how the wiring looks:
+
+<video controls width="100%">
+    <source src="/img/in-post/IMG_0706.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
