@@ -26,7 +26,7 @@ I then chose a big cybersecurity attack to take a look at. The hack I decided to
 ### Juice Shopping
 I found a docker image that would create a fake website I can learn how to "hack" on. It's called OWASP Juice Shop. I first read a little bit about SQL injection, as the first task involved using it. I learned if a SQL query uses concatenation and doesn’t have a sanitizing or validation process, it will be easy to exploit the query’s vulnerabilities. In Juice Shop's login, you can put into the username input field <' or 1=1;> to create a SQL query that looks like "sql = “SELECT id FROM users WHERE user = ‘” + “‘ __or 1-1;__". This closes the quotes after the first where condition which allows the exploiter to modify the SQL query. By using "or 1=1", you can make it so it selects the first user made (usually the administrator), because the SQL query will always come out as true.
 
-![Screenshot](/img/in-post/post-sqlinjection.png)
+<img src="/img/in-post/post-sqlinjection.png" width="50%">
 
 ## The Second Week
 
@@ -86,7 +86,7 @@ I've decided to start on a project. I'm calling it PacketVision. This project wi
 
 First, I had to figure out how PyShark worked. I'm going to need to learn how to analyze packets as the project progresses. I simply made a list, and then hooked up PyShark to live capture all packets. Then, I used a for loop to analyze each of the packets. I was able to get an IP source and an IP destination. Now I needed to find out the hostnames of both IPs. I found a module for python called "socket." This would help me reverse DNS lookup each of the IPs. I then had to work on the MatPlotLib. All I did was setup the dimensions for the bargraph, and set up the layout. I appended each of the source ips and destination ips from the packet to their own unique list. I then added that data to the matplotlib graph. When I ran the for loop, the graphs said that the data lists were not equal in length. I realized this is because some of the reverse DNS lookups couldn't resolve a hostname. Therefore, I put in a try and except, which would help filter out the packets that didn't have a hostname. After some styling, the result came out like this:
 
-![Screenshot](/img/in-post/post-packetvision-dashboard.png)
+<img src="/img/in-post/post-packetvision-dashboard.png" width="50%">
 
 Afterwards, I knew I had to make this more useful. So, I decided to add alerts for suspicious activity. The first alert I decided to add was to detect a port scan. The way I did this is to keep a record of each destination IP a source IP has contacted. Once one source IP has hit more than 20 destination IP's, it flags it as a port scan.
 
@@ -114,7 +114,7 @@ dig aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.example.com (DN
 
 Once I put these into the terminal, it would test all of the flags. Eventually, with some tweaking around with thresholds and the commands, I was able to get it to work! Here is a sample alert:
 
-![Screenshot](/img/in-post/post-sample-flag.png)
+<img src="/img/in-post/post-sample-flag.png" width="50%">
 
 ## Homelabbing
 ### Intro
@@ -131,7 +131,7 @@ After succesfully installing Proxmox, I wanted to access it anywhere. I decided 
 
 The next step was to install Docker and its containers. The plan for this homelab was to have an adblocker, a monitoring system, and NAS storage. Docker would help me do most of this. The first service I installed using docker was pi-hole (the adblocker). Some troubleshooting was needed. A default ubuntu app was already using port 53, the pi-hole port. I had to kill it and then make sure to change to config to not start it when I turned the homelab on. After some more DNS and DHCP troubleshooting, I was able to access the pihole dashboard:
 _Feb 8 2025_
-![Screenshot](/img/in-post/pi-hole-dash.png)
+<img src="/img/in-post/pi-hole-dash.png" width="50%">
 
 The next thing I wanted to setup was a NAS storage for my media files. I grabbed a USB encasing for an SSD, and put an SSD inside. I installed Samba for an NAS service and configured it. To connect the USB SSD I had to first identify what it was identified as within the Ubuntu system. After doing that using lsblk, I passed the USB disk to the Ubuntu VM. After, I formatted and mounted it. Finder was misbehaving a little bit, so I had to edit the Samba config and restart finder. I verified that I could access it from tailscale and then I was done. However, the USB SSD encasing was heating up a little bit, so I got a new one, and now need to mount the new one later.
 
@@ -140,7 +140,7 @@ The next thing I wanted to setup was a NAS storage for my media files. I grabbed
 My second to last last addition was to make a dashboard to monitor the homelab, and also add that dashboard to a Raspberry Pi. All I had to do was install netdata on the Ubuntu VM, and then set up the Raspberry Pi after a while of sitting around. Here is how the (very messy) final product looks.
 
 
-![Screenshot](/img/in-post/homelab-pic.jpeg)
+<img src="/img/in-post/homelab-pic.jpeg" width="50%">
 
 ### Extra Addition
 _Mar 9 2025_
@@ -148,13 +148,14 @@ As a mountain biker who takes a lot of GoPro videos, I need a place for storage.
 
 ## New Big Project
 
+_Mar 29 2026_
 I needed to think of a new project. Looking around my house led me to the camera above my garage doors facing the street. I felt like doing some hardware work, so I made a plan: have the camera detect my car and open the garage door. First things first, it is an old garage door opener so I made sure I could open it remotely first. There was no app, so I resorted to a raspberry pi and a relay module. I found some female-to-female wires, and connected the pi to the relay module. I also added a script into the pi to activate the garage door.
 
-![Sreenshot](/img/in-post/relay-pi.jpeg)
+<img src="/img/in-post/relay-pi.jpeg" width="50%">
 
 Afterwards, I cut two 1 foot doorbell wires then stripped all ends and connected them to the blue screw terminals on the relay module. I used this diagram to help me:
 
-![Screenshot](/img/in-post/relay-diagram.png)
+<img src="/img/in-post/relay-diagram.png" width="50%">
 
 The pi would replicate the shorting of the two screw terminals I found in the wall console/button.  After wrapping the doorbell wire around the screw terminals (COM to red screw and NO to white screw), I turned on the pi and ran this script:
 
@@ -183,7 +184,7 @@ finally:
 
 This is how the wiring looks:
 
-<video controls width="100%">
+<video controls width="50%">
     <source src="/img/in-post/IMG_0706.mp4" type="video/mp4">
     Your browser does not support the video tag.
 </video>
