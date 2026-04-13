@@ -188,3 +188,15 @@ This is how the wiring looks:
     <source src="/img/in-post/IMG_0706.mp4" type="video/mp4">
     Your browser does not support the video tag.
 </video>
+
+After making sure that the Pi could trigger the garage door, I needed to write a program to detect my truck. First I needed the RTSP url for my camera. One challenge I ran into was that my homelab which I planned to run the program on was on a different wifi. So I decided to just run the program on the Pi and switch the wi-fi on the Pi to the one the camera is on.
+
+It took me a while to find the RTSP camera url in the Unifi UI, but eventually I was able to. I used Mosquitto as the message broker, and I just ran the program on Docker. I am also using Frigate as the AI detection for the camera. In the Frigate config, I set the resolution to 1280x720 and 5fps so my Pi doesn't stress too much.
+
+Next, I had to make the script. I would trigger the relay the same way in the previous script. I made a cooldown so the door wouldn't trigger over and over again. I also made it print all the MQTT messages for debugging. Then I just added some MQTT setup, and it was done. I tried going in and out of the driveway, but it didn't open.
+
+Before trying to solve why it wasn't opening, I also added a zone in the Frigate UI for just my driveway, so it would only trigger if someone pulls into my driveway. I also had to add it in the Frigate config.
+
+After some troubleshooting, I found the main issue. There are two types of events: new and update. New means that there is a new car in the scene, and update means there is a car in the scene that was there before. I was only using the new event to determine if the garage door should open, however the new event never included any zones in the MQTT message. So I would have to use the update messages, and just make sure it wasn't there before.
+
+After updating the script, it finally worked. It takes a little bit to open, but otherwise it works.
